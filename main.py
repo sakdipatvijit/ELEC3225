@@ -109,7 +109,8 @@ while(True):
             elif option == '2':
                 user.search_specific_course()
             elif option == '3':
-                user.add_course()
+                CRN = input("Enter CRN:")
+                user.add_course(CRN)
             elif option == '4':
                 user.drop_course()
             elif option == '5':

@@ -1,5 +1,5 @@
 import sqlite3
-from User import User  # Import base class
+from User import User
 
 # Establish database connection
 database = sqlite3.connect("School.db")
@@ -9,11 +9,7 @@ class Student(User):
     def __init__(self, first_name_input, last_name_input, ID_input):
         super().__init__(first_name_input, last_name_input, ID_input)
 
-    def add_course(self):
-
-        CRN = input("Enter CRN: ")
-        # Assuming student has an attribute ID
-
+    def add_course(self, CRN):
         # SQL query to fetch the course details
         schedule_query = "SELECT CRN, TITLE FROM COURSE WHERE CRN = ?;"
         cursor.execute(schedule_query, (CRN,))
@@ -21,8 +17,8 @@ class Student(User):
 
         if course is not None:
             # If the course exists, insert it into the student's schedule
-            schedule_modify = "INSERT INTO SCHEDULE (CRN, TITLE, ID, FIRST_NAME, LAST_NAME) VALUES (?, ?, ?, ?, ?);"
-            cursor.execute(schedule_modify, (course[0], course[1], self.ID, self.first_name, self.last_name))
+            schedule_modify = "INSERT INTO SCHEDULE (CRN, ID) VALUES (?, ?);"
+            cursor.execute(schedule_modify, (course[0], self.ID))
 
             # Commit the transaction to save changes
             database.commit()
@@ -30,10 +26,7 @@ class Student(User):
         else:
             print("Course not found.")
 
-    def drop_course(self):
-
-        CRN = input("Enter CRN: ")
-
+    def drop_course(self, CRN):
         # SQL query to delete a course from the student's schedule
         schedule_modify = "DELETE FROM SCHEDULE WHERE CRN = ? AND ID = ?;"
         cursor.execute(schedule_modify, (CRN, self.ID))
@@ -42,21 +35,15 @@ class Student(User):
         database.commit()
         print("Course dropped successfully.")
 
-
-
     def print_schedule(self):
-
         schedule_query = cursor.execute("SELECT * FROM SCHEDULE WHERE ID = ?", (self.ID,)).fetchall()
         for course in schedule_query:
             print(course)
 
-
     def search_course(self):
-
         course_query = cursor.execute("SELECT * FROM COURSE").fetchall()
         for course in course_query:
             print(course)
-
 
     def search_specific_course(self):
         print("Search specific course:")
@@ -64,7 +51,6 @@ class Student(User):
         print("2. Department")
         print("3. Semester")
         option = input("Enter option: ")
-
 
         if option == '1':
             crn_input = input("Enter CRN: ")
@@ -84,4 +70,3 @@ class Student(User):
         else:
             print("Invalid option.")
             return
-
