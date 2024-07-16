@@ -58,7 +58,8 @@ while(True):
             print("1. Print all courses")
             print("2. Print course based on (CRN, DEPARTMENT, SEMESTER)")
             print("3. Add a course")
-            print("4. Logout")
+            print("4. Remove a course")
+            print("5. Logout")
     
             option = input("Option: ")
 
@@ -67,8 +68,21 @@ while(True):
             elif option == '2':
                 user.search_specific_course()
             elif option == '3':
-                user.add_course()
+                # Collect input for the new course
+                CRN = input("Enter CRN: ")
+                TITLE = input("Enter Title: ")
+                DEPARTMENT = input("Enter Department: ")
+                TIME = input("Enter Time: ")
+                DAY = input("Enter Day: ")
+                SEMESTER = input("Enter Semester: ")
+                YEAR = input("Enter Year: ")
+                CREDIT = input("Enter Credit: ")
+                user.add_course(CRN, TITLE, DEPARTMENT, TIME, DAY, SEMESTER, YEAR, CREDIT)
             elif option == '4':
+                # Collect input for the CRN of the course to remove
+                CRN = input("Enter CRN: ")
+                user.remove_course()
+            elif option == '5':
                 print("You have successfully logged out.")
                 database.close()
                 authenticated = False
