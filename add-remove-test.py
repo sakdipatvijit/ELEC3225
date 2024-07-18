@@ -27,7 +27,7 @@ class TestAdminFunctions(unittest.TestCase):
         self.conn.commit()
 
     def test_add_course(self):
-        CRN, TITLE, DEPARTMENT, TIME, DAY, SEMESTER, YEAR, CREDIT = '12345', 'CourseTitle', 'Dept', '10:00-11:00', 'MWF', 'Fall', '2023', 3
+        CRN, TITLE, DEPARTMENT, TIME, DAY, SEMESTER, YEAR, CREDIT = '12345', 'CourseTitle', 'Dept', '10:00-11:00', 'MWF', 'Fall', '2024', 3
         self.admin.add_course(CRN, TITLE, DEPARTMENT, TIME, DAY, SEMESTER, YEAR, CREDIT)
         # Query the database to check if the course was added
         self.cursor.execute('SELECT * FROM COURSE WHERE CRN = ?', (CRN,))
@@ -37,7 +37,7 @@ class TestAdminFunctions(unittest.TestCase):
 
     def test_remove_course(self):
         CRN = '12345'
-        self.admin.add_course(CRN, 'CourseTitle', 'Dept', '10:00-11:00', 'MWF', 'Fall', '2023', 3)
+        self.admin.add_course(CRN, 'CourseTitle', 'Dept', '10:00-11:00', 'MWF', 'Fall', '2024', 3)
         self.admin.remove_course(CRN)
         # Query the database to check if the course was removed
         self.cursor.execute('SELECT * FROM COURSE WHERE CRN = ?', (CRN,))
