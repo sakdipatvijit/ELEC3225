@@ -36,7 +36,7 @@ class TestAdminFunctions(unittest.TestCase):
         self.assertEqual(course[1], TITLE)
 
     def test_remove_course(self):
-        CRN = '12345'
+        CRN = '67890'
         self.admin.add_course(CRN, 'CourseTitle', 'Dept', '10:00-11:00', 'MWF', 'Fall', '2024', 3)
         self.admin.remove_course(CRN)
         # Query the database to check if the course was removed
