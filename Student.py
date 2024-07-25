@@ -45,28 +45,25 @@ class Student(User):
         for course in course_query:
             print(course)
 
-    def search_specific_course(self):
-        print("Search specific course:")
-        print("1. CRN")
-        print("2. Department")
-        print("3. Semester")
-        option = input("Enter option: ")
+    def search_specific_course(self, option, input):
 
-        if option == '1':
-            crn_input = input("Enter CRN: ")
-            course_query = cursor.execute("SELECT * FROM COURSE WHERE CRN = ?", (crn_input,)).fetchall()
+        course_results = []
+
+        if option == 1:
+            course = cursor.execute("SELECT * FROM COURSE WHERE CRN = ?", (input,)).fetchone()
+            return course
+        elif option == 2:
+            course_query = cursor.execute("SELECT * FROM COURSE WHERE DEPARTMENT = ?", (input,)).fetchall()
             for course in course_query:
                 print(course)
-        elif option == '2':
-            department_input = input("Enter Department: ")
-            course_query = cursor.execute("SELECT * FROM COURSE WHERE DEPARTMENT = ?", (department_input,)).fetchall()
+                course_results.append(course)
+            return course_results
+        elif option == 3:
+            course_query = cursor.execute("SELECT * FROM COURSE WHERE SEMESTER = ?", (input,)).fetchall()
             for course in course_query:
                 print(course)
-        elif option == '3':
-            semester_input = input("Enter Semester: ")
-            course_query = cursor.execute("SELECT * FROM COURSE WHERE SEMESTER = ?", (semester_input,)).fetchall()
-            for course in course_query:
-                print(course)
+                course_results.append(course)
+            return course_results
         else:
             print("Invalid option.")
-            return
+            return []
