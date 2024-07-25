@@ -24,22 +24,22 @@ class User:
 
         course_results = []
 
-        if option == 1:
-            course = cursor.execute("SELECT * FROM COURSE WHERE CRN = ?", (input,)).fetchone()
-            return course
-        elif option == 2:
+        if option == '1':
+            course = cursor.execute("SELECT * FROM COURSE WHERE CRN = ?", (input,)).fetchall()
+            print(course)
+        elif option == '2':
             course_query = cursor.execute("SELECT * FROM COURSE WHERE DEPARTMENT = ?", (input,)).fetchall()
             for course in course_query:
                 print(course)
                 course_results.append(course)
-        elif option == 3:
+        elif option == '3':
             course_query = cursor.execute("SELECT * FROM COURSE WHERE SEMESTER = ?", (input,)).fetchall()
             for course in course_query:
                 print(course)
                 course_results.append(course)
         else:
             print("Invalid option.")
-            return []
+            return
 
 
 
